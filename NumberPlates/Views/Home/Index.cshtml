@@ -1,14 +1,16 @@
-﻿@{
+﻿@using NumberPlates.Models
+@{
     ViewBag.Title = "Home Page";
 
     var lgas = ViewBag.Lgas;
+    var plateNumbers = ViewBag.Plates as List<PlateNumber>;
 }
 
 <div class="row">
     <div class="col-md-12">
         <h1>Generate plate numbers</h1>
 
-        <form method="post" action="@Url.Action("Generate", "Home")" class="form-inline">
+        <form method="post" action="@Url.Action("Generate", "Home")" class="">
             <div class="form-group">
                 <label for="Lga">LGA:</label>
                 @Html.DropDownList("lga", new SelectList(lgas, "Code", "Code"), new { @class = "form-control" })
@@ -20,9 +22,31 @@
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
-                </select> 
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Generate</button>
         </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Latest registered plate numbers</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Number</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach(var item in plateNumbers)
+                {
+                    <tr>
+                        <td>@item.FullNumber()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>

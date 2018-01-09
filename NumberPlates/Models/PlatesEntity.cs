@@ -29,5 +29,10 @@ namespace NumberPlates.Models
         public int Number { get; set; }
 
         public string Letter { get; set; }
+
+        public string FullNumber()
+        {
+            return LGA + Number.ToString().PadLeft(3, '0') + Letter;
+        }
     }
 }
